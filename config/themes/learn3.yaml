@@ -3,5 +3,5 @@ google_analytics_code: UA-57776306-2
 github:
     enabled: false
     position: top
-    tree: https://github.com/getgrav/grav-learn/blob/develop/
-    commits: https://github.com/getgrav/grav-learn/commits/develop/
+    tree: https://github.com/naturecloud/docs/blob/master/
+    commits: https://github.com/naturecloud/docs/commits/develop/
