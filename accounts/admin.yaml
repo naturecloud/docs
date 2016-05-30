@@ -1,0 +1,11 @@
+email: hjqi@naturecloud.io
+fullname: hjqi
+title: admin
+state: enabled
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+hashed_password: $2y$10$ujl/QOwWru6bvCfxx2epXufMXCEZ5apFcRH4Cy09lcFwOzzsn/nku
