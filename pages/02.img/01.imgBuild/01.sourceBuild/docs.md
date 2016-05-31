@@ -4,7 +4,11 @@ taxonomy:
     category: docs
 ---
 
-构建获取源码、编译、打包，最终生成docker镜像。
+代码构建获取源码、编译、打包，最终生成docker镜像。
+
+代码构建之前需要做好如下准备工作：
+1. 代码已经托管在“代码托管平台”（目前平台支持github、bitbucket）
+2. 源代码中包含项目对应的[Dockerfile](../Dockerfile)。
 
 ## 创建构建 ##
 1. 打开“代码构建“子页面
