@@ -67,7 +67,10 @@ RUN mkdir –p /data/log
 
 例如
 
-> `WORKDIR /a`，`WORKDIR b`，`RUN pwd`最终输出的当前目录是/a/b。
+> `WORKDIR /a`
+> `WORKDIR b`
+
+最终的工作目录是/a/b。
 
 ## 如何往镜像里添加文件 ##
 
@@ -92,7 +95,8 @@ RUN mkdir –p /data/log
 CMD nginx -g daemon off
 ```
 
-## Dockerfile更详细的用法请参考 ##
+Dockerfile更详细的用法请参考
 
 [http://seanlook.com/2014/11/17/dockerfile-introduction/](http://seanlook.com/2014/11/17/dockerfile-introduction/)
+
 [https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)
