@@ -8,7 +8,7 @@ taxonomy:
 
 代码构建之前需要做好如下准备工作：
 1. 代码已经托管在“代码托管平台”（目前平台支持github、bitbucket）
-2. 源代码中包含项目对应的[Dockerfile](../Dockerfile)。
+2. 源代码中包含项目对应的[Dockerfile](../dockerfile)。
 
 ## 创建构建 ##
 1. 打开“代码构建“子页面

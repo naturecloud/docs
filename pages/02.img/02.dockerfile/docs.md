@@ -7,8 +7,14 @@ taxonomy:
 Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 下面是一个Dockerfile的样例
+	FROM 115.28.226.88:5000/hjqi/java                  #以java为基础镜像
+	COPY . /usr/src/myapp
+	WORKDIR /usr/src/myapp
+	RUN javac Main.java
+	CMD ["java", "Main"]
 
-    FROM naturecloud.io/library/nodejs:latest   #以nodejs为基础镜像
+
+    FROM 115.28.226.88:5000/hjqi/node:latest   #以nodejs为基础镜像
     
     #Add files to the image
     
@@ -20,7 +26,7 @@ Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分大小写。但是，命名约定为全部大写。下面介绍几个常用的Dockerfile指令
 
-## 如何配置基础环境 ##
+### 如何配置基础环境 ###
 
 语法： `FROM <image>:<tag>`
 
@@ -35,7 +41,7 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
 
 !! 如果Dockerfile中选的基础镜像来自自然云的官方镜像，请采用如下格式115.28.226.88:5000/hjqi/nginx:1.9.14
 
-## 如何安装软件 ##
+### 如何安装软件 ###
 
 
 `RUN <commnad>`
@@ -47,7 +53,7 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
     RUN apt-get install vim
 ```
 
-## 执行Shell命令 ##
+### 执行Shell命令 ###
 
 
 `RUN <commnad>`
@@ -59,7 +65,7 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
 RUN mkdir –p /data/log
 ```
 
-## 指定工作目录 ##
+### 指定工作目录 ###
 
 
 `WORKDIR`指令用于设置Dockerfile中的`RUN`、`CMD`指令执行命令的工作目录(默认为/目录)，该指令在Dockerfile文件中可以出现多次，如果使用相对路径则为相对于`WORKDIR`上一次的值。
@@ -72,19 +78,19 @@ RUN mkdir –p /data/log
 
 最终的工作目录是/a/b。
 
-## 如何往镜像里添加文件 ##
+### 如何往镜像里添加文件 ###
 
 	COPY <src>  <dest>
 将文件<src\>拷贝到container的文件系统对应的路径<dest\>下。<src\>可以是文件、文件夹，对于文件和文件夹<src\>必须是在Dockerfile的相对路径下（build context path），即只能是相对路径且不能包含`../path/`。
 
 <dest\>可以是容器中的绝对路径，也可以是当前`WORKDIR`指定的目录。
 
-## 设置环境变量 ##
+### 设置环境变量 ###
 
     ENV <key> <value>
 设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效
 
-## 容器启动时运行的命令 ##
+### 容器启动时运行的命令 ###
 
     CMD command param1 param2
 例如：
