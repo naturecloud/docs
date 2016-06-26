@@ -56,7 +56,7 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
 以naturecloud上的版本号为1.9.14的nginx镜像为基础镜像
 
 
-!! 如果Dockerfile中选的基础镜像来自自然云的官方镜像，请采用如下格式registry.naturecloud.io/hjqi/nginx:1.9.14
+! 如果Dockerfile中选的基础镜像来自自然云的官方镜像，请采用如下格式registry.naturecloud.io/hjqi/nginx:1.9.14
 
 ### 如何安装软件 ###
 
@@ -111,7 +111,7 @@ RUN mkdir –p /data/log
 <dest\>可以是容器中的绝对路径，也可以是当前`WORKDIR`指定的目录。
 
 
-!!对于文件和文件夹<src\>必须是在Dockerfile的相对路径下（build context path），即只能是相对路径且不能包含`../path/`。
+! 对于文件和文件夹<src\>必须是在Dockerfile的相对路径下（build context path），即只能是相对路径且不能包含`../path/`。
 
 
 
@@ -126,7 +126,7 @@ RUN mkdir –p /data/log
 设置容器里的java_home是容器里的/root/java/jdk1.7.0_51目录
 
 
-! Docker 加速器 1.0 仍在正常运行。我们列出以下文章内容的主要原因是帮助您了解 Docekr 加速器 1.0 的技术实现原理。我们推荐您使用 Docker 加速器 2.0，以获得更好的用户体验。
+! 设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效。
 
 
 ### 容器启动时运行的命令 ###
