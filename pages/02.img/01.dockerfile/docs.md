@@ -31,7 +31,7 @@ Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 ---
 
-    FROM 115.28.226.88:5000/hjqi/node:latest   #以nodejs为基础镜像
+    FROM registry.naturecloud.io/hjqi/node:latest   #以nodejs为基础镜像
     
     #Add files to the image
     
@@ -51,12 +51,12 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
 
 例子:
 
-	FROM 115.28.226.88:5000/hjqi/nginx:1.9.14 
+	FROM registry.naturecloud.io/hjqi/nginx:1.9.14 
   
 以naturecloud上的版本号为1.9.14的nginx镜像为基础镜像
 
 
-!! 如果Dockerfile中选的基础镜像来自自然云的官方镜像，请采用如下格式115.28.226.88:5000/hjqi/nginx:1.9.14
+!! 如果Dockerfile中选的基础镜像来自自然云的官方镜像，请采用如下格式registry.naturecloud.io/hjqi/nginx:1.9.14
 
 ### 如何安装软件 ###
 
@@ -125,6 +125,13 @@ RUN mkdir –p /data/log
 
 设置容器里的java_home是容器里的/root/java/jdk1.7.0_51目录
 
+
+
+.. note::
+
+    Some of these packages can lag considerably behind the official
+    release version.  For example, Ubuntu 12.04 (released April 2012)
+    offers a package based on Supervisor 3.0a8 (released January 2010).
 
 .. note::
 
