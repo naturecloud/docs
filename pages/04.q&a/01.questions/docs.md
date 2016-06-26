@@ -34,7 +34,8 @@ taxonomy:
 	   RUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 4.Q:在启动容器需要启动多个进程怎么办？
 	
-	A:
-
-
-
+	A:如果熟悉supervisor的可以将各个进程在supervisor的配置文件里进行配置，然后启动脚本设置为supervisor -c 配置文件启动。
+	如果不熟悉，可以用dockerfile中的CMD命令，用&& 连接各个进程的启动命令
+5:Q:镜像制作成功后，docker run 后马上退出了，如何查问题？
+	
+	A：可以将进程的日志通过卷存储挂载，然后再卷管理中进行问题查看。
