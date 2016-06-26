@@ -7,12 +7,29 @@ taxonomy:
 Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 下面是一个Dockerfile的样例
-	FROM 115.28.226.88:5000/hjqi/java                  #以java为基础镜像
-	COPY . /usr/src/myapp
-	WORKDIR /usr/src/myapp
-	RUN javac Main.java
-	CMD ["java", "Main"]
 
+	FROM registry.naturecloud.io/hjqi/java:1.7         
+	#以java为基础镜像  
+	#registry.naturecloud.io 是镜像仓库
+	#hjqi/java   是镜像
+	#1.7  是引用镜像的版本
+	
+	ADD . /usr/src/myapp
+	#将和dockerfile同级目录的所有文件拷贝到容器里的目标地址/usr/src/myapp
+	#例如tomcat，常常会把war包放到tomcat的home目录的webapps下
+	#ADD xx.war   /tomcat/webapps
+
+	WORKDIR /usr/src/myapp
+	#设置容器的工作目录，进入容器后显示的当前目录
+	#程序里需要用到的工作目录，可以用WORKDIR来设置
+
+	RUN javac Main.java
+	#执行shell命令
+
+	CMD ["java", "Main"]
+	#容器的启动命令
+
+---
 
     FROM 115.28.226.88:5000/hjqi/node:latest   #以nodejs为基础镜像
     
@@ -81,14 +98,35 @@ RUN mkdir –p /data/log
 ### 如何往镜像里添加文件 ###
 
 	COPY <src>  <dest>
-将文件<src\>拷贝到container的文件系统对应的路径<dest\>下。<src\>可以是文件、文件夹，对于文件和文件夹<src\>必须是在Dockerfile的相对路径下（build context path），即只能是相对路径且不能包含`../path/`。
+
+例如
+
+> `COPY src /src`
+
+将同级的src目录，拷贝到容器里根目录下的src目录
+
+
+将文件<src\>拷贝到container的文件系统对应的路径<dest\>下。<src\>可以是文件、文件夹。
 
 <dest\>可以是容器中的绝对路径，也可以是当前`WORKDIR`指定的目录。
+
+
+!!对于文件和文件夹<src\>必须是在Dockerfile的相对路径下（build context path），即只能是相对路径且不能包含`../path/`。
+
+
 
 ### 设置环境变量 ###
 
     ENV <key> <value>
-设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效
+
+例如
+
+> `ENV JAVA_HOME /root/java/jdk1.7.0_51`
+
+设置容器里的java_home是容器里的/root/java/jdk1.7.0_51目录
+
+.. note::
+	设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效
 
 ### 容器启动时运行的命令 ###
 
