@@ -125,17 +125,7 @@ RUN mkdir –p /data/log
 
 设置容器里的java_home是容器里的/root/java/jdk1.7.0_51目录
 
-
-
-.. note::
-
-    Some of these packages can lag considerably behind the official
-    release version.  For example, Ubuntu 12.04 (released April 2012)
-    offers a package based on Supervisor 3.0a8 (released January 2010).
-
-.. note::
-
-	设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效
+>>设置了后，后续的`RUN`命令都可以使用，当运行生成的镜像时这些环境变量依然有效
 
 
 ### 容器启动时运行的命令 ###
