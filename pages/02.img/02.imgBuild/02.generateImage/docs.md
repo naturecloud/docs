@@ -8,7 +8,7 @@ taxonomy:
 
 ### 搭建Docker环境
 关于如何搭建docker环境，不清楚的同学可以参考
-[docker 安装](../../q&a/docker-q&a)
+[docker 安装](../../../q&a/docker-q&a)
 
 ### 生成镜像
 通过docker build命令生成镜像
