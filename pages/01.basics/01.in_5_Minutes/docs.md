@@ -4,26 +4,24 @@ taxonomy:
     category: docs
 ---
 
-下面通过一个例子，介绍如何使用平台进行应用的快速交付。
+下面通过hello world的例子，介绍如何使用平台进行应用的快速交付。
 
-通过模拟一个nginx的例子来熟悉自然云。
-
-### 准备Dockerfile ###
+### 第一步：准备Dockerfile ###
 
 前期需要准备镜像，可以选择以下两种的任一种
 
 - #### 直接写Dockerfile ####
 
-	将自己的html加入镜像，查看目录结构
+	这个例子只有一个源码文件helloworld.html，helloworld.html放在跟Dockerfile同一个目录中。
 
 		root@node:/data01/sample# ls
 		Dockerfile  helloworld.html
 
-	然后写自己的dockerfile
+	Dockerfile内容如下
 	
 		FROM naturecloud.io/library/nginx:1.9.14
 
-		ADD helloword.html /usr/share/nginx/html
+		ADD helloword.html /usr/share/nginx/html #将helloword.html添加到镜像中的目录/usr/share/nginx/html
 
 
 - #### 通过容器完成Dockerfile过程 ####
@@ -41,11 +39,9 @@ taxonomy:
 	跟环境相关的依赖什么安装后，然后只需要将自己的最终的dockerfile from 之前的基础镜像，加入自己的执行程序和启动脚本即可。
 
 
-### 生成镜像 ###
+### 第二步：生成镜像 ###
 
-生成镜像的目的是为了提供给服务创建选择镜像使用
-
-选择以下两种的任一种
+镜像是应用最终的交付件，选择以下两种的任一种生成镜像
 
 - #### 平台构建 ####
 	
@@ -133,3 +129,10 @@ taxonomy:
 
 点击服务列表里的删除按钮
 ![](servicedelete.png)
+
+### 温馨提示 ###
+
+通过5分钟入门，期望大家可以对自然云的使用有个基本的了解。要了解详细的内容，请参阅
+
+1. 后续章节中对每一功能的详细介绍
+2. [常见问题](../q&a)
