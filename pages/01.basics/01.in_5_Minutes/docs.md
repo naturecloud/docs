@@ -21,7 +21,7 @@ taxonomy:
 
 	然后写自己的dockerfile
 	
-		FROM naturecloud.io/nginx:1.9.14
+		FROM naturecloud.io/library/nginx:1.9.14
 
 		ADD helloword.html /usr/share/nginx/html
 
@@ -30,12 +30,12 @@ taxonomy:
 
 	docker run 系统镜像，然后进入容器里安装依赖
 	
-		root@node:~# docker run  -it naturecloud.io/ubuntu:trusty /bin/bash
+		root@node:~# docker run  -it naturecloud.io/library/nginx:1.9.14 /bin/bash
 		root@e72d0f78365f:~#apt-get install xxxx
 		root@e72d0f78365f:exit
-		root@node:~# docker ps -a | grep naturecloud.io/ubuntu:trusty
-		e72d0f78365f        naturecloud.io/ubuntu:trusty                                      "/bin/bash"          51 minutes ago      Exited (130) 55 seconds ago     
-		root@node:~# docker commit e72d0f78365f mynginx-image
+		root@node:~# docker ps -a | grep naturecloud.io/nginx:1.9.14
+		e72d0f78365f        naturecloud.io/nginx:1.9.14                                      "/bin/bash"          51 minutes ago      Exited (130) 55 seconds ago     
+		root@node:~# docker commit e72d0f78365f nginx-image
 		c868d49c60726e42172465234a84232a4ec3f87a14f24aeb9be4c790a9cfaae7
 
 	跟环境相关的依赖什么安装后，然后只需要将自己的最终的dockerfile from 之前的基础镜像，加入自己的执行程序和启动脚本即可。
@@ -50,9 +50,21 @@ taxonomy:
 - #### 平台构建 ####
 	
 	平台创建可以对接github,bitbucket源码托管的平台
+	![](buildcreate.png)
 	![](sourcebuild.png)
-	在选择某个工程后，进入构建环节，构建完成后可以在我的镜像中查看到之前构建的镜像
-	![](myImages.png)
+	页面跳转到源码托管认证界面
+	![](oauth-login.png)
+	![](oauth-access.png)
+	![](build-select.png)
+	![](buildselect-1.png)
+	![](buildstart.png)
+	![](buildstart-1.png)
+	在构建列表里点击构建名称进入构建任务列表
+	![](buildretlist.png)
+	点击任务序号进入查看构建结果
+	![](buildret.png)
+	构建完成后可以在我的镜像中查看到之前构建的镜像
+	![](myImage.png)
 	
 
 - #### 线下构建 ####
