@@ -8,9 +8,9 @@ Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 下面是一个Dockerfile的样例
 
-	FROM registry.naturecloud.io/hjqi/java:1.7         
+	FROM naturecloud.io/hjqi/java:1.7         
 	#以java为基础镜像  
-	#registry.naturecloud.io 是镜像仓库
+	#naturecloud.io 是镜像仓库
 	#hjqi/java   是镜像
 	#1.7  是引用镜像的版本
 	
@@ -31,7 +31,7 @@ Dockerfile对应创建镜像的过程，包含了创建镜像的指定序列。
 
 ---
 
-    FROM registry.naturecloud.io/hjqi/node:latest   #以nodejs为基础镜像
+    FROM naturecloud.io/hjqi/node:latest   #以nodejs为基础镜像
     
     #Add files to the image
     
@@ -51,7 +51,7 @@ Dockerfile支持支持的语法命令为INSTRUCTION argument。指令不区分�
 
 例子:
 
-	FROM registry.naturecloud.io/hjqi/nginx:1.9.14 
+	FROM naturecloud.io/hjqi/nginx:1.9.14 
   
 以naturecloud上的版本号为1.9.14的nginx镜像为基础镜像
 
