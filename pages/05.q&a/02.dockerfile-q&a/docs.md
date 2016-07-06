@@ -60,23 +60,24 @@ taxonomy:
 > A：可以在dockerfile里添加
 > 
 >     ENV TZ=Asia/Shanghai
-    RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ /etc/timezone
+>     RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ /etc/> >     timezone
 
 > 或者
 >     
 >     RUN sudo echo "Asia/Shanghai" > /etc/timezone
-    RUN sudo dpkg-reconfigure -f noninteractive tzdata
+>     RUN sudo dpkg-reconfigure -f noninteractive tzdata
 
 
 7.Q:容器里碰到字符集问题
 
 > A: 在dockerfile里添加
 > 
-	# Ensure UTF-8 locale
-    # COPY locale /etc/default/locale
-    RUN locale-gen zh_CN.UTF-8 &&\
-      DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
-    RUN locale-gen zh_CN.UTF-8  
-    ENV LANG zh_CN.UTF-8  
-    ENV LANGUAGE zh_CN:zh  
-    ENV LC_ALL zh_CN.UTF-8  
+>   
+>     # Ensure UTF-8 locale
+>     # COPY locale /etc/default/locale
+>     RUN locale-gen zh_CN.UTF-8 &&\
+>     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+>     RUN locale-gen zh_CN.UTF-8  
+>     ENV LANG zh_CN.UTF-8  
+>     ENV LANGUAGE zh_CN:zh  
+>     ENV LC_ALL zh_CN.UTF-8  
