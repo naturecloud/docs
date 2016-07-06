@@ -35,7 +35,7 @@ taxonomy:
 	root@node:/data01/test# docker tag 7af820851f3b naturecloud.io/hjqi/my-image
 	
 	#7af820851f3b    是刚才生成镜像的IMAGE ID
-	#naturecloud.io  是目标registry的地址
+	#naturecloud.io  是平台仓库的地址
     #hjqi			 是namespace，和用户名一致
 
 	root@node:/data01/test# docker images| grep naturecloud.io/hjqi/my-image         
