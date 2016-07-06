@@ -51,6 +51,32 @@ taxonomy:
 > A:如果熟悉supervisor的可以将各个进程在supervisor的配置文件里进行配置，然后启动脚本设置为supervisor -c 配置文件启动。
 > 如果不熟悉，可以用dockerfile中的CMD命令，用&& 连接各个进程的启动命令
 
-5:Q:镜像制作成功后，docker run 后马上退出了，如何查问题？
+5.Q:镜像制作成功后，docker run 后马上退出了，如何查问题？
 	
 > A：可以将进程的日志通过卷存储挂载，然后再卷管理中进行问题查看。
+
+6.Q:容器里碰到时区问题
+
+> A：可以在dockerfile里添加
+> 
+>     ENV TZ=Asia/Shanghai
+    RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ /etc/timezone
+
+> 或者
+>     
+>     RUN sudo echo "Asia/Shanghai" > /etc/timezone
+    RUN sudo dpkg-reconfigure -f noninteractive tzdata
+
+
+7.Q:容器里碰到字符集问题
+
+> A: 在dockerfile里添加
+> 
+	# Ensure UTF-8 locale
+    # COPY locale /etc/default/locale
+    RUN locale-gen zh_CN.UTF-8 &&\
+      DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+    RUN locale-gen zh_CN.UTF-8  
+    ENV LANG zh_CN.UTF-8  
+    ENV LANGUAGE zh_CN:zh  
+    ENV LC_ALL zh_CN.UTF-8  
