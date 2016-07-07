@@ -20,7 +20,9 @@ taxonomy:
 Dockerfile内容如下
 	
 	FROM naturecloud.io/library/nginx:1.9.14
-	ADD helloword.html /usr/share/nginx/html #将helloword.html添加到镜像中的目录/usr/share/nginx/html
+	
+    #将helloword.html添加到镜像中的目录/usr/share/nginx/html
+    ADD helloworld.html /usr/share/nginx/html
     
 helloworld.html内容如下
     
@@ -61,7 +63,7 @@ helloworld.html内容如下
     
     ##### 提交代码 #####
 
-    将第一步中的Dockerfile和helloworld.html提交到github或者bitbucket. 假定项目名称为naturecloud-sample。
+    将第一步中的Dockerfile和helloworld.html提交到github或者bitbucket，并打tag. 假定项目名称为naturecloud-sample，打上tag 1.0。
     
     ##### 创建构建 #####
     
@@ -76,6 +78,8 @@ helloworld.html内容如下
 	![](oauth-login.png)
 
 	![](oauth-access.png)
+
+    点击“获取代码列表”
 
 	![](build-select.png)
 
@@ -113,17 +117,25 @@ helloworld.html内容如下
     构建镜像
 
         root@node:/data01/sample# docker build -t nginx-image .
+        Sending build context to Docker daemon 66.05 kB
+        Step 1 : FROM naturecloud.io/library/nginx:1.9.14
+         ---> ff34638b0b1b
+        Step 2 : ADD helloworld.html /usr/share/nginx/html/
+         ---> Using cache
+         ---> d784a5bb4e01
+        Successfully built d784a5bb4e01
+
 	
     给镜像打tag，将镜像推送到平台的registry
 
-	    docker tag $IAMGE_ID   naturecloud.io/$namespace/$IAMGE_NAME # $IAMGE_ID是上一步的镜像id，$namespace是在平台的用户名，$IAMGE_NAME是镜像名
-	    docker push naturecloud.io/$namespace/$IAMGE_NAME
+	    root@node:/data01/sample# docker tag $IAMGE_ID naturecloud.io/$namespace/nginx-image:$TAG_NAME # $IAMGE_ID是上一步的镜像id(Successfully built d784a5bb4e01中d784a5bb4e01)，$namespace是在平台的用户名，$IAMGE_NAME是镜像名（比如取名为nginx-image）,$TAG_NAME是tag名（比如latest,1.0等）
+	    root@node:/data01/sample# docker push naturecloud.io/$namespace/nginx-image:$TAG_NAME
 		
-	这时就可以在平台中，我的镜像里看到，之前push过来的镜像
+	这时就可以在平台中，我的镜像里看到，之前push过来的镜像nginx-image
 
 ### 第三步： 创建服务 ###
 
-先选择之前上传的镜像，然后点击部署	
+进入容器服务页面，点击创建服务，选择之前上传的镜像nginx-image，然后点击部署	
 
 ![](servicecreate-selectimage.png)
 
