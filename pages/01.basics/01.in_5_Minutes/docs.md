@@ -8,22 +8,35 @@ taxonomy:
 
 ### 第一步：准备Dockerfile ###
 
-前期需要准备镜像，可以选择以下两种的任一种
-
+<!--
 - #### 直接写Dockerfile ####
+-->
 
-	这个例子只有一个源码文件helloworld.html，helloworld.html放在跟Dockerfile同一个目录中。
+这个例子只有一个源码文件helloworld.html，helloworld.html放在跟Dockerfile同一个目录中。
 
-		root@node:/data01/sample# ls
-		Dockerfile  helloworld.html
+	root@node:/data01/sample# ls
+	Dockerfile  helloworld.html
 
-	Dockerfile内容如下
+Dockerfile内容如下
 	
-		FROM naturecloud.io/library/nginx:1.9.14
+	FROM naturecloud.io/library/nginx:1.9.14
+	
+    #将helloword.html添加到镜像中的目录/usr/share/nginx/html
+    ADD helloworld.html /usr/share/nginx/html
+    
+helloworld.html内容如下
+    
+    <html>
+        <head>
+            <title>dockerfile test</title>
+        </head>
+        <body bgcolor="white" text="black">
+            <center><h1>helloworld</h1></center>
+        </body>
+    </html>
 
-		ADD helloword.html /usr/share/nginx/html #将helloword.html添加到镜像中的目录/usr/share/nginx/html
 
-
+<!--
 - #### 通过容器完成Dockerfile过程 ####
 
 	docker run 系统镜像，然后进入容器里安装依赖
@@ -36,54 +49,105 @@ taxonomy:
 		root@node:~# docker commit e72d0f78365f nginx-image
 		c868d49c60726e42172465234a84232a4ec3f87a14f24aeb9be4c790a9cfaae7
 
-	跟环境相关的依赖什么安装后，然后只需要将自己的最终的dockerfile from 之前的基础镜像，加入自己的执行程序和启动脚本即可。
+	跟环境相关的依赖什么安装后，然后只需要将自己的最终的dockerfile from 之前的基础镜像，加入自己的执行程序和启动脚本即可。 
+-->
 
 
 ### 第二步：生成镜像 ###
 
 镜像是应用最终的交付件，选择以下两种的任一种生成镜像
 
-- #### 平台构建 ####
+- #### 方式一：平台构建 ####
 	
-	平台创建可以对接github,bitbucket源码托管的平台
+	平台构建建可以对接github,bitbucket源码托管的平台。
+    
+    ##### 提交代码 #####
+
+    将第一步中的Dockerfile和helloworld.html提交到github或者bitbucket，并打tag. 假定项目名称为naturecloud-sample，打上tag 1.0。
+    
+    ##### 创建构建 #####
+    
+    下面以bitbucket为例，介绍如何创建构建。
+
 	![](buildcreate.png)
+
 	![](sourcebuild.png)
+
 	页面跳转到源码托管认证界面
+
 	![](oauth-login.png)
+
 	![](oauth-access.png)
+
+    点击“获取代码列表”
+
 	![](build-select.png)
+
 	![](buildselect-1.png)
+
+    ##### 执行构建 #####
+    
 	![](buildstart.png)
+
 	![](buildstart-1.png)
+
 	在构建列表里点击构建名称进入构建任务列表
+
 	![](buildretlist.png)
+
 	点击任务序号进入查看构建结果
+
 	![](buildret.png)
+
 	构建完成后可以在我的镜像中查看到之前构建的镜像
+
 	![](myImage.png)
 	
+    后面当有新的代码版本时，只需找执行相应版本的构建即可。
 
-- #### 线下构建 ####
+- #### 方式二：线下构建 ####
 
-	线下构建的前期准备可以参考dockerfile制作过程。
+    线下构建需要有一个docker环境。关于如何搭建docker环境，不清楚的同学可以参考[docker 安装](../../../q&a/docker-q&a)
 	
-	在镜像构建完成后，通过打tag，将镜像推送到平台的registry
+	进入Dockerfile和helloworld.html所在目录
 
-		docker tag $IAMGE_ID   naturecloud.io/$namespace/$IAMGE_NAME
-		docker push naturecloud.io/$namespace/$IAMGE_NAME
+        root@node:/data01/sample# ls
+	    Dockerfile  helloworld.html
+
+    构建镜像
+
+        root@node:/data01/sample# docker build -t nginx-image .
+        Sending build context to Docker daemon 66.05 kB
+        Step 1 : FROM naturecloud.io/library/nginx:1.9.14
+         ---> ff34638b0b1b
+        Step 2 : ADD helloworld.html /usr/share/nginx/html/
+         ---> Using cache
+         ---> d784a5bb4e01
+        Successfully built d784a5bb4e01
+
+	
+    给镜像打tag，将镜像推送到平台的registry
+
+	    root@node:/data01/sample# docker tag $IAMGE_ID naturecloud.io/$namespace/nginx-image:$TAG_NAME # $IAMGE_ID是上一步的镜像id(Successfully built d784a5bb4e01中d784a5bb4e01)，$namespace是在平台的用户名，$IAMGE_NAME是镜像名（比如取名为nginx-image）,$TAG_NAME是tag名（比如latest,1.0等）
+	    root@node:/data01/sample# docker push naturecloud.io/$namespace/nginx-image:$TAG_NAME
 		
-	这时就可以在平台中，我的镜像里看到，之前push过来的镜像
+	这时就可以在平台中，我的镜像里看到，之前push过来的镜像nginx-image
 
-### 创建服务 ###
+### 第三步： 创建服务 ###
 
-先选择之前上传的镜像，然后点击部署	
+进入容器服务页面，点击创建服务，选择之前上传的镜像nginx-image，然后点击部署	
+
 ![](servicecreate-selectimage.png)
+
 然后再服务创建信息页面填写相关参数
+
 ![](servicecreate-info.png)
+
 最后点击创建，服务列表里可以看到之前创建的服务
+
 ![](servicelist.png)
 
-### 管理服务 ###
+### 第四步： 管理服务 ###
 
 
 
@@ -94,8 +158,11 @@ taxonomy:
 ![](servicedetail.png)
 
 **访问服务**
+
 ![](serviceAccess.png)
+
 然后使用url，访问之前添加到helloworld.html
+
 ![](helloworld-test.png)
 
 **查看日志**
@@ -109,6 +176,7 @@ taxonomy:
 #### 版本更新 ####
 
 在服务列表里面点击版本变更
+
 ![](serviceUpdate.png)
 
 #### 启动/停止服务 ####
@@ -117,7 +185,8 @@ taxonomy:
 
 #### 伸缩 ####
 
-通过伸缩扩容来实现服务的快速横向扩容
+通过伸缩扩容来增加/减少实例数目
+
 ![](servicescale.png)
 
 #### 修改服务 ####
@@ -128,6 +197,7 @@ taxonomy:
 #### 删除服务 ####
 
 点击服务列表里的删除按钮
+
 ![](servicedelete.png)
 
 ### 温馨提示 ###
