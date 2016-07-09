@@ -1,4 +1,4 @@
-﻿---
+---
 title: 自定义域名
 taxonomy:
     category: docs
