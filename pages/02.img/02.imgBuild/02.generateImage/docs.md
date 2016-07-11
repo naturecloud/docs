@@ -41,6 +41,12 @@ taxonomy:
 	root@node:/data01/test# docker images| grep naturecloud.io/hjqi/my-image         
  	naturecloud.io/hjqi/my-image                            latest               7af820851f3b        15 minutes ago      182.8 MB
 	
+
+	root@node:docker login naturecloud.io
+	Username (hjqi6): 
+	WARNING: login credentials saved in /root/.docker/config.json
+	Login Succeeded
+
 	root@node:/data01/test#docker push naturecloud.io/hjqi/my-image
 	#将镜像推送到平台上，在 推送成功后，平台上就可以显示自己的镜像了
 
